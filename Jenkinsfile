@@ -14,16 +14,24 @@ pipeline {
             } 
             post { 
                 success { 
-                    mail to: "yashpansuria80@gmail.com", 
-                    subject: "Unit & Integration Tests Success - Build # ${currentBuild.number}", 
-                    body: "The Unit & Integration Tests stage has completed successfully. Build logs are attached.", 
-                    attachLog: true 
+                    script {
+                        def logFile = "${env.WORKSPACE}/unit_integration_tests_log.txt"
+                        writeFile file: logFile, text: currentBuild.rawBuild.getLog().join('\n')
+                        mail to: "yashpansuria80@gmail.com", 
+                             subject: "Unit & Integration Tests Success - Build # ${currentBuild.number}", 
+                             body: "The Unit & Integration Tests stage has completed successfully. Build logs are attached.", 
+                             attachmentsPattern: 'unit_integration_tests_log.txt'
+                    }
                 } 
                 failure { 
-                    mail to: "yashpansuria80@gmail.com", 
-                    subject: "Unit & Integration Tests Failure - Build # ${currentBuild.number}", 
-                    body: "The Unit & Integration Tests stage has failed. Build logs are attached.", 
-                    attachLog: true 
+                    script {
+                        def logFile = "${env.WORKSPACE}/unit_integration_tests_log.txt"
+                        writeFile file: logFile, text: currentBuild.rawBuild.getLog().join('\n')
+                        mail to: "yashpansuria80@gmail.com", 
+                             subject: "Unit & Integration Tests Failure - Build # ${currentBuild.number}", 
+                             body: "The Unit & Integration Tests stage has failed. Build logs are attached.", 
+                             attachmentsPattern: 'unit_integration_tests_log.txt'
+                    }
                 } 
             } 
         } 
@@ -38,16 +46,24 @@ pipeline {
             } 
             post { 
                 success { 
-                    mail to: "yashpansuria80@gmail.com", 
-                    subject: "Security Scan Success - Build # ${currentBuild.number}", 
-                    body: "The Security Scan stage has completed successfully. Build logs are attached.", 
-                    attachLog: true 
+                    script {
+                        def logFile = "${env.WORKSPACE}/security_scan_log.txt"
+                        writeFile file: logFile, text: currentBuild.rawBuild.getLog().join('\n')
+                        mail to: "yashpansuria80@gmail.com", 
+                             subject: "Security Scan Success - Build # ${currentBuild.number}", 
+                             body: "The Security Scan stage has completed successfully. Build logs are attached.", 
+                             attachmentsPattern: 'security_scan_log.txt'
+                    }
                 } 
                 failure { 
-                    mail to: "yashpansuria80@gmail.com", 
-                    subject: "Security Scan Failure - Build # ${currentBuild.number}", 
-                    body: "The Security Scan stage has failed. Build logs are attached.", 
-                    attachLog: true 
+                    script {
+                        def logFile = "${env.WORKSPACE}/security_scan_log.txt"
+                        writeFile file: logFile, text: currentBuild.rawBuild.getLog().join('\n')
+                        mail to: "yashpansuria80@gmail.com", 
+                             subject: "Security Scan Failure - Build # ${currentBuild.number}", 
+                             body: "The Security Scan stage has failed. Build logs are attached.", 
+                             attachmentsPattern: 'security_scan_log.txt'
+                    }
                 } 
             } 
         } 
@@ -70,16 +86,25 @@ pipeline {
 
     post { 
         success { 
-            mail to: "yashpansuria80@gmail.com", 
-            subject: "Pipeline Success - Build # ${currentBuild.number}", 
-            body: "The pipeline has successfully completed all stages. Build logs are attached.", 
-            attachLog: true 
+            script {
+                def logFile = "${env.WORKSPACE}/pipeline_log.txt"
+                writeFile file: logFile, text: currentBuild.rawBuild.getLog().join('\n')
+                mail to: "yashpansuria80@gmail.com", 
+                     subject: "Pipeline Success - Build # ${currentBuild.number}", 
+                     body: "The pipeline has successfully completed all stages. Build logs are attached.", 
+                     attachmentsPattern: 'pipeline_log.txt'
+            }
         } 
         failure { 
-            mail to: "yashpansuria80@gmail.com", 
-            subject: "Pipeline Failure - Build # ${currentBuild.number}", 
-            body: "The pipeline has failed. Build logs are attached.", 
-            attachLog: true 
+            script {
+                def logFile = "${env.WORKSPACE}/pipeline_log.txt"
+                writeFile file: logFile, text: currentBuild.rawBuild.getLog().join('\n')
+                mail to: "yashpansuria80@gmail.com", 
+                     subject: "Pipeline Failure - Build # ${currentBuild.number}", 
+                     body: "The pipeline has failed. Build logs are attached.", 
+                     attachmentsPattern: 'pipeline_log.txt'
+            }
         } 
     } 
 }
+
