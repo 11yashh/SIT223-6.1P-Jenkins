@@ -12,6 +12,14 @@ pipeline {
                 echo 'Running unit tests with JUnit...' 
                 echo 'Running integration tests with Selenium...' 
             } 
+            post {
+                always {
+                    mail to: "yashpansuria80@gmail.com", 
+                    subject: "Test Stage Completion - Build # ${currentBuild.number}", 
+                    body: "The Unit and Integration Tests stage has completed. Please check the logs.", 
+                    attachmentsPattern: "${currentBuild.rawBuild.getLog()}"
+                }
+            }
         } 
         stage('Code Analysis') { 
             steps { 
@@ -22,6 +30,14 @@ pipeline {
             steps { 
                 echo 'Scanning for vulnerabilities with SAST scanner...' 
             } 
+            post {
+                always {
+                    mail to: "yashpansuria80@gmail.com", 
+                    subject: "Security Scan Completion - Build # ${currentBuild.number}", 
+                    body: "The Security Scan stage has completed. Please check the logs.", 
+                    attachmentsPattern: "${currentBuild.rawBuild.getLog()}"
+                }
+            }
         } 
         stage('Deploy to Staging') { 
             steps { 
