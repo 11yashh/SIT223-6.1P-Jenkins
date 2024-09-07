@@ -22,7 +22,7 @@ pipeline {
                        mail to: "yashpansuria80@gmail.com",
                         subject: "Test Stage - Build #${currentBuild.number}",
                         body: "The Unit and Integration Tests stage has completed. Please find the logs attached.",
-                        attachLog: true
+                        attachmentsPattern: '**/log/**/*.log'
                     
                 }
             }
@@ -43,7 +43,7 @@ pipeline {
                        mail to: "yashpansuria80@gmail.com",
                         subject: "Security Scan Stage - Build #${currentBuild.number}",
                         body: "The Security Scan stage has completed. Please find the logs attached.",
-                        attachLog: true
+                        attachmentsPattern: '**/log/**/*.log'
                     
                 }
             }
@@ -71,6 +71,7 @@ pipeline {
               mail to: "yashpansuria80@gmail.com",
                 subject: "Pipeline Success - Build #${currentBuild.number}",
                 body: "The pipeline has successfully completed all stages. Congratulations!"
+                attachmentsPattern: '**/log/**/*.log'
             
         }
         failure {
@@ -78,7 +79,7 @@ pipeline {
                 mail to: "yashpansuria80@gmail.com",
                 subject: "Pipeline Failure - Build #${currentBuild.number}",
                 body: "The pipeline has failed. Please review the logs for more details.",
-                attachLog: true
+                attachmentsPattern: '**/log/**/*.log'
             
         }
     }
