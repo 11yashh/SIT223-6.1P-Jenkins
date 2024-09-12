@@ -19,7 +19,7 @@ pipeline {
 
                     // Send email with logs attached
                     
-                      mailto:  "yashpansuria80@gmail.com",
+                      maiil to:  "yashpansuria80@gmail.com",
                         subject: "Test Stage Completion - Build #${currentBuild.number}",
                         body: "The Unit and Integration Tests stage has completed. Please check the logs.",
                         attachmentsPattern: '**/*.log', // Attach the logs
@@ -41,7 +41,7 @@ pipeline {
                 always {
                     // Send email with logs attached
                     
-                     mailto: "yashpansuria80@gmail.com",
+                     mail to: "yashpansuria80@gmail.com",
                         subject: "Security Scan Completion - Build #${currentBuild.number}",
                         body: "The Security Scan stage has completed. Please check the logs.",
                         attachmentsPattern: '**/*.log', // Attach the logs
@@ -70,7 +70,7 @@ pipeline {
     post {
         success {
             
-                mailto: "yashpansuria80@gmail.com",
+                mail to: "yashpansuria80@gmail.com",
                 subject: "Pipeline Success - Build #${currentBuild.number}",
                 body: "The pipeline has successfully completed all stages. Build logs are attached.",
                 attachmentsPattern: '**/*.log', // Attach the logs
@@ -79,7 +79,7 @@ pipeline {
         }
         failure {
             
-                mailto: "yashpansuria80@gmail.com",
+                mail to: "yashpansuria80@gmail.com",
                 subject: "Pipeline Failure - Build #${currentBuild.number}",
                 body: "The pipeline has failed. Build logs are attached.",
                 attachmentsPattern: '**/*.log', // Attach the logs
