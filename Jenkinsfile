@@ -24,8 +24,7 @@ pipeline {
             }
             post {
                 always {
-                    // Archive logs for security scan if available
-                    archiveArtifacts artifacts: '**/*.log', allowEmptyArchive: true
+                   
 
                     // Send email with a link to the Jenkins build page and log information
                     mail to: "yashpansuria80@gmail.com",
@@ -34,12 +33,7 @@ pipeline {
                         Logs: Scanning for vulnerabilities with SAST scanner...
                         The Security Scan stage has completed.
 
-                        Build Number: ${currentBuild.number}
-                        Build URL: ${env.BUILD_URL}
-
-                        Please check the full console output and artifacts here: ${env.BUILD_URL}/console
-                        Logs can be downloaded as artifacts.
-                        """
+                       Build URL: ${env.BUILD_URL} """
                 }
             }
         }
@@ -68,12 +62,7 @@ pipeline {
                 Logs: Completed Scan
                 The pipeline has successfully completed all stages.
 
-                Build Number: ${currentBuild.number}
-                Build URL: ${env.BUILD_URL}
-
-                Please check the full console output and artifacts here: ${env.BUILD_URL}/console
-                Logs can be downloaded as artifacts.
-                """
+                 Build URL: ${env.BUILD_URL} """
         }
         failure {
             mail to: "yashpansuria80@gmail.com",
@@ -82,12 +71,9 @@ pipeline {
                 Logs: Failed Scan
                 The pipeline has failed.
 
-                Build Number: ${currentBuild.number}
-                Build URL: ${env.BUILD_URL}
+                Build URL: ${env.BUILD_URL}"""
 
-                Please check the full console output and artifacts here: ${env.BUILD_URL}/console
-                Logs can be downloaded as artifacts.
-                """
+                
         }
     }
 }
