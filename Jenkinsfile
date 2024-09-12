@@ -14,17 +14,21 @@ pipeline {
             }
             post {
                 always {
-                    // Archive test results or logs if available
+                    // Archive logs or test results
                     archiveArtifacts artifacts: '**/test-results/*.xml', allowEmptyArchive: true
 
-                    // Send email with logs attached
-                    
-                      maiil to:  "yashpansuria80@gmail.com",
+                    // Send email with a link to the Jenkins build page and log information
+                    mail to: "yashpansuria80@gmail.com",
                         subject: "Test Stage Completion - Build #${currentBuild.number}",
-                        body: "The Unit and Integration Tests stage has completed. Please check the logs.",
-                        attachmentsPattern: '**/*.log', // Attach the logs
-                        attachLog: true // Attach the Jenkins build log
-                    
+                        body: """
+                        The Unit and Integration Tests stage has completed.
+
+                        Build Number: ${currentBuild.number}
+                        Build URL: ${env.BUILD_URL}
+
+                        Please check the full console output and artifacts here: ${env.BUILD_URL}/console
+                        Logs and test results can be downloaded as artifacts.
+                        """
                 }
             }
         }
@@ -39,14 +43,21 @@ pipeline {
             }
             post {
                 always {
-                    // Send email with logs attached
-                    
-                     mail to: "yashpansuria80@gmail.com",
+                    // Archive logs for security scan if available
+                    archiveArtifacts artifacts: '**/*.log', allowEmptyArchive: true
+
+                    // Send email with a link to the Jenkins build page and log information
+                    mail to: "yashpansuria80@gmail.com",
                         subject: "Security Scan Completion - Build #${currentBuild.number}",
-                        body: "The Security Scan stage has completed. Please check the logs.",
-                        attachmentsPattern: '**/*.log', // Attach the logs
-                        attachLog: true // Attach the Jenkins build log
-                    
+                        body: """
+                        The Security Scan stage has completed.
+
+                        Build Number: ${currentBuild.number}
+                        Build URL: ${env.BUILD_URL}
+
+                        Please check the full console output and artifacts here: ${env.BUILD_URL}/console
+                        Logs can be downloaded as artifacts.
+                        """
                 }
             }
         }
@@ -69,22 +80,30 @@ pipeline {
 
     post {
         success {
-            
-                mail to: "yashpansuria80@gmail.com",
+            mail to: "yashpansuria80@gmail.com",
                 subject: "Pipeline Success - Build #${currentBuild.number}",
-                body: "The pipeline has successfully completed all stages. Build logs are attached.",
-                attachmentsPattern: '**/*.log', // Attach the logs
-                attachLog: true // Attach the Jenkins build log
-            
+                body: """
+                The pipeline has successfully completed all stages.
+
+                Build Number: ${currentBuild.number}
+                Build URL: ${env.BUILD_URL}
+
+                Please check the full console output and artifacts here: ${env.BUILD_URL}/console
+                Logs can be downloaded as artifacts.
+                """
         }
         failure {
-            
-                mail to: "yashpansuria80@gmail.com",
+            mail to: "yashpansuria80@gmail.com",
                 subject: "Pipeline Failure - Build #${currentBuild.number}",
-                body: "The pipeline has failed. Build logs are attached.",
-                attachmentsPattern: '**/*.log', // Attach the logs
-                attachLog: true // Attach the Jenkins build log
-            
+                body: """
+                The pipeline has failed.
+
+                Build Number: ${currentBuild.number}
+                Build URL: ${env.BUILD_URL}
+
+                Please check the full console output and artifacts here: ${env.BUILD_URL}/console
+                Logs can be downloaded as artifacts.
+                """
         }
     }
 }
