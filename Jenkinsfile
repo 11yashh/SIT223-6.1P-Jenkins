@@ -24,7 +24,7 @@ pipeline {
                         You can view the logs here: ${env.BUILD_URL}console
                         """
                     attachments: [
-                          (fileName: 'console.txt', content: '${readFile('console')}')
+                          (fileName: 'console.txt', content: '${readFile('console')})  // Replace colon with closing parenthesis
                     ],
                 }
             }
@@ -49,7 +49,7 @@ pipeline {
                         You can view the logs here: ${env.BUILD_URL}console
                         """
                     attachments: [
-                          (fileName: 'console.txt', content: '${readFile('console')}')
+                          (fileName: 'console.txt', content: '${readFile('console')})  // Replace colon with closing parenthesis
                     ],
                 }
             }
@@ -81,7 +81,7 @@ pipeline {
                 You can view the logs here: ${env.BUILD_URL}console
                 """
             attachments: [
-                          (fileName: 'console.txt', content: '${readFile('console')}')
+                          (fileName: 'console.txt', content: '${readFile('console')})  // Replace colon with closing parenthesis
                     ],
             
         }
@@ -94,7 +94,7 @@ pipeline {
                 You can view the logs here: ${env.BUILD_URL}console
                 """
             attachments: [
-                          (fileName: 'console.txt', content: '${readFile('console')}')
+                          (fileName: 'console.txt', content: '${readFile('console')})  // Replace colon with closing parenthesis
                     ],
             
         }
