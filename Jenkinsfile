@@ -11,7 +11,20 @@ pipeline {
             steps { 
                 echo 'Running unit tests with JUnit...' 
                 echo 'Running integration tests with Selenium...' 
-            } 
+                // If test results are auto-generated, Jenkins will pick them up from the console log
+            }
+            post {
+                always {
+                    // Send email with link to Jenkins logs (console output)
+                    mail to: "yashpansuria80@gmail.com",
+                        subject: "Test Stage Completion - Build #${currentBuild.number}",
+                        body: """
+                        The Unit and Integration Tests stage has completed.
+
+                        You can view the logs here: ${env.BUILD_URL}console
+                        """
+                }
+            }
         }
         stage('Code Analysis') {
             steps {
@@ -24,16 +37,14 @@ pipeline {
             }
             post {
                 always {
-                   
-
-                    // Send email with a link to the Jenkins build page and log information
+                    // Send email with link to Jenkins logs (console output)
                     mail to: "yashpansuria80@gmail.com",
                         subject: "Security Scan Completion - Build #${currentBuild.number}",
                         body: """
-                        Logs: Scanning for vulnerabilities with SAST scanner...
                         The Security Scan stage has completed.
 
-                       Build URL: ${env.BUILD_URL} """
+                        You can view the logs here: ${env.BUILD_URL}console
+                        """
                 }
             }
         }
@@ -59,21 +70,19 @@ pipeline {
             mail to: "yashpansuria80@gmail.com",
                 subject: "Pipeline Success - Build #${currentBuild.number}",
                 body: """
-                Logs: Completed Scan
                 The pipeline has successfully completed all stages.
 
-                 Build URL: ${env.BUILD_URL} """
+                You can view the logs here: ${env.BUILD_URL}console
+                """
         }
         failure {
             mail to: "yashpansuria80@gmail.com",
                 subject: "Pipeline Failure - Build #${currentBuild.number}",
                 body: """
-                Logs: Failed Scan
                 The pipeline has failed.
 
-                Build URL: ${env.BUILD_URL}"""
-
-                
+                You can view the logs here: ${env.BUILD_URL}console
+                """
         }
     }
 }
