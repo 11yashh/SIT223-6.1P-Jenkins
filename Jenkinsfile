@@ -11,7 +11,7 @@ pipeline {
             steps { 
                 echo 'Running unit tests with JUnit...' 
                 echo 'Running integration tests with Selenium...' 
-                // If test results are auto-generated, Jenkins will pick them up from the console log
+               
             }
             post {
                 always {
