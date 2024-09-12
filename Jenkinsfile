@@ -7,30 +7,11 @@ pipeline {
                 echo 'Building the code using Maven.'
             }
         }
-        stage('Unit and Integration Tests') {
-            steps {
-                echo 'Running unit tests with JUnit...'
-                echo 'Running integration tests with Selenium...'
-            }
-            post {
-                always {
-                    // Archive logs or test results
-                    archiveArtifacts artifacts: '**/test-results/*.xml', allowEmptyArchive: true
-
-                    // Send email with a link to the Jenkins build page and log information
-                    mail to: "yashpansuria80@gmail.com",
-                        subject: "Test Stage Completion - Build #${currentBuild.number}",
-                        body: """
-                        The Unit and Integration Tests stage has completed.
-
-                        Build Number: ${currentBuild.number}
-                        Build URL: ${env.BUILD_URL}
-
-                        Please check the full console output and artifacts here: ${env.BUILD_URL}/console
-                        Logs and test results can be downloaded as artifacts.
-                        """
-                }
-            }
+        stage('Unit and Integration Tests') { 
+            steps { 
+                echo 'Running unit tests with JUnit...' 
+                echo 'Running integration tests with Selenium...' 
+            } 
         }
         stage('Code Analysis') {
             steps {
