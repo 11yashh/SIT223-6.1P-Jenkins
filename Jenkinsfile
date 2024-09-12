@@ -31,6 +31,7 @@ pipeline {
                     mail to: "yashpansuria80@gmail.com",
                         subject: "Security Scan Completion - Build #${currentBuild.number}",
                         body: """
+                        Logs: Scanning for vulnerabilities with SAST scanner...
                         The Security Scan stage has completed.
 
                         Build Number: ${currentBuild.number}
@@ -64,6 +65,7 @@ pipeline {
             mail to: "yashpansuria80@gmail.com",
                 subject: "Pipeline Success - Build #${currentBuild.number}",
                 body: """
+                Logs: Completed Scan
                 The pipeline has successfully completed all stages.
 
                 Build Number: ${currentBuild.number}
@@ -77,6 +79,7 @@ pipeline {
             mail to: "yashpansuria80@gmail.com",
                 subject: "Pipeline Failure - Build #${currentBuild.number}",
                 body: """
+                Logs: Failed Scan
                 The pipeline has failed.
 
                 Build Number: ${currentBuild.number}
