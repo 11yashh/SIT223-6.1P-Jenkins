@@ -23,7 +23,9 @@ pipeline {
 
                         You can view the logs here: ${env.BUILD_URL}console
                         """
-                    attachments: [ fileName: 'console.txt', content: '${readFile('console')}' ]
+                    attachments: [
+                          (fileName: 'console.txt', content: '${readFile('console')}')
+                    ],
                 }
             }
         }
@@ -46,7 +48,9 @@ pipeline {
 
                         You can view the logs here: ${env.BUILD_URL}console
                         """
-                    attachments: [ fileName: 'console.txt', content: '${readFile('console')}']
+                    attachments: [
+                          (fileName: 'console.txt', content: '${readFile('console')}')
+                    ],
                 }
             }
         }
@@ -76,7 +80,9 @@ pipeline {
 
                 You can view the logs here: ${env.BUILD_URL}console
                 """
-            attachments: [ fileName: 'console.txt', content: '${readFile('console')}' ]
+            attachments: [
+                          (fileName: 'console.txt', content: '${readFile('console')}')
+                    ],
             
         }
         failure {
@@ -87,7 +93,9 @@ pipeline {
 
                 You can view the logs here: ${env.BUILD_URL}console
                 """
-            attachments: [ fileName: 'console.txt', content: '${readFile('console')}' ]
+            attachments: [
+                          (fileName: 'console.txt', content: '${readFile('console')}')
+                    ],
             
         }
     }
